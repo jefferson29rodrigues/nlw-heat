@@ -51,8 +51,11 @@ export function AuthProvider(props: AuthProvider) {
         const token = localStorage.getItem('@dowhile:token');
 
         if (token) {
-            api.get('profile').then(response => {
-                console.log(response.data);
+
+            api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+            api.get<User>('profile').then(response => {
+                setUser(response.data);
             })
         }
     }, []);
