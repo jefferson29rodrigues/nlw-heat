@@ -46,6 +46,16 @@ export function AuthProvider(props: AuthProvider) {
 
         setUser(user);
     }
+
+    useEffect(() => {
+        const token = localStorage.getItem('@dowhile:token');
+
+        if (token) {
+            api.get('profile').then(response => {
+                console.log(response.data);
+            })
+        }
+    }, []);
  
     useEffect(() => {
         const url = window.location.href;
