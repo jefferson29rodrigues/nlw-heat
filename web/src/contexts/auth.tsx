@@ -31,7 +31,6 @@ type AuthResponse = {
 }
 
 export function AuthProvider(props: AuthProvider) {
-
     const [user, setUser] = useState<User | null>(null);
 
     const signInUrl = `https://github.com/login/oauth/authorize?scope=user&client_id=d9ef69cd2acb9cd8e224`;
@@ -44,6 +43,8 @@ export function AuthProvider(props: AuthProvider) {
         const { token, user } = response.data;
 
         localStorage.setItem('@dowhile:token', token);
+        
+        api.defaults.headers.common.authorization = `Bearer ${token}`;
 
         setUser(user);
     }
